@@ -73,7 +73,7 @@ class OpenDealTest extends AnyFlatSpec {
       "c9"
     )
     val listOfCards = listOfCardStrings.map((cardString: String) =>
-      new Card(getSuit(cardString), getRank(cardString))
+      Card(getSuit(cardString), getRank(cardString))
     )
 
     var openDeal: OpenDeal = OpenDeal.empty(validDuplicateBoard)
@@ -89,7 +89,7 @@ class OpenDealTest extends AnyFlatSpec {
 
   private def assertEventIsCorrect(expectedCardString: String, event: Event) = {
     assert(event.isInstanceOf[PlayCardEvent])
-    val expectedCard = new Card(getSuit(expectedCardString), getRank(expectedCardString))
+    val expectedCard = Card(getSuit(expectedCardString), getRank(expectedCardString))
     val actualCard = event.asInstanceOf[PlayCardEvent].card
     assertResult(expectedCard)(actualCard)
   }
