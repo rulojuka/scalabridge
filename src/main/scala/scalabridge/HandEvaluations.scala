@@ -38,7 +38,7 @@ case class HandEvaluations(hand: Hand) {
     cardsPerSuit(suit).count(isThreeHigherCards(_)) >= 2
   def hasThreeOutOfFiveHigherCards(suit: Suit): Boolean =
     cardsPerSuit(suit).count(isFiveHigherCards(_)) >= 3
-  val getLongestSuit: Suit = cardsPerSuit.max(ord = (x, y) => x._2.size - y._2.size)._1
+  val getLongestSuit: Suit = cardsPerSuit.max(using ord = (x, y) => x._2.size - y._2.size)._1
   val hasFourOrMoreCardsInMajorSuitExcludingLongestSuit: Boolean = cardsPerSuit
     .filterNot((suit, _) => suit == getLongestSuit)
     .filter((suit, _) => isMajorSuit(suit))

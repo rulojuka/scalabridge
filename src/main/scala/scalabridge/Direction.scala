@@ -1,7 +1,6 @@
 package scalabridge
 
 import scalabridge.exceptions.DirectionException
-import scala.jdk.CollectionConverters.*
 
 import scala.util.Failure
 import scala.util.Success

@@ -15,7 +15,7 @@ case class Hand(
 
   private val playedCardsSet: Set[Card] = this.playedCards.toSet
   private val unplayedCardsSet: Set[Card] = this.allCards -- this.playedCardsSet
-  private val unplayedCards: Seq[Card] = unplayedCardsSet.toSeq.sorted(ordering)
+  private val unplayedCards: Seq[Card] = unplayedCardsSet.toSeq.sorted(using ordering)
   val cards: Set[Card] = unplayedCardsSet
   val getCards: java.util.List[Card] = CollectionConverters.asJava(unplayedCards)
   val isComplete: Boolean = this.allCards.size == GameConstants.SIZE_OF_HAND

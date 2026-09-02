@@ -10,12 +10,16 @@ scalabridge uses scala 3.
 
 ## Compiling
 
-libridge uses sbt to build. The following line should be enough:
+scalabridge uses sbt to build. The following line should be enough:
 
 ```
 sbt package
 ```
 ## Testing
+
+Run tests: `sbt test`
+
+Force run all tests: `sbt testFull`
 
 Unit tests: `sbt 'testOnly *Test'`
 

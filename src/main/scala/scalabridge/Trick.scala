@@ -21,7 +21,7 @@ case class Trick(leader: Direction, cards: Vector[Card]) {
     cards
       .filter(_.suit == suit)
       .map(_.rank)
-      .sorted(RankOrderings.highestFirst)
+      .sorted(using RankOrderings.highestFirst)
       .headOption
       .map(Card(suit, _))
 

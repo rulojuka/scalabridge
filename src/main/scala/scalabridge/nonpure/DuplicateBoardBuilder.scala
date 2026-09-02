@@ -2,7 +2,6 @@ package scalabridge.nonpure
 
 import scalabridge.CompleteDeckInFourHands
 import scalabridge.CompleteHand
-import scalabridge.Direction
 import scalabridge.DuplicateBoard
 import scalabridge.PositiveInteger
 import scalabridge.pbn.PBNDealTag

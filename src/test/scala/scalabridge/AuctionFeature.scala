@@ -1,6 +1,5 @@
 package scalabridge
 
-import org.scalatest._
 import scala.io.Source
 
 class AuctionFeature extends FeatureSpec {
@@ -14,7 +13,7 @@ class AuctionFeature extends FeatureSpec {
     Scenario("User creates thousands of valid auctions") {
       Given("a file with thousands of auctions, one per line")
       val resource = Source.fromResource("auctions-valid.txt") // Side-effect
-      val lines: Iterator[String] = resource.getLines
+      val lines: Iterator[String] = resource.getLines()
 
       When("each Auction is created with the data")
       val allAuctions = lines.map(createAuctionFromString(_))
