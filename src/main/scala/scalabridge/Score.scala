@@ -10,7 +10,7 @@ case class Score(
 ) {
   private val NO_TRUMP_FIRST_TRICK_BONUS = 10
 
-  def calculate: Int = {
+  lazy val value: Int = {
     contract match
       case defaultContract: DefaultContract => {
         val overOrUnderTricks = tricksMade.tricks - 6 - defaultContract.getLevel;

@@ -12,7 +12,7 @@ class ScoreTest extends UnitFunSpec {
   ): Int = {
     val contract = ContractFromTextValidatedBuilder.build(text)
     val score = Score(contract, vulnerabilityStatus, tricksMade)
-    score.calculate
+    score.value
   }
 
   private val nonVul = VulnerabilityStatus.NONVULNERABLE
@@ -87,12 +87,12 @@ class ScoreTest extends UnitFunSpec {
       values.foreach(downSome =>
         val (i, a, b, c, d, e, f) = downSome
         val tricksMade = NumberOfTricks.fromInt(13 - i).get
-        Score(nonVul, nonvulnerable, tricksMade).calculate shouldBe a
-        Score(nonVulX, nonvulnerable, tricksMade).calculate shouldBe b
-        Score(nonVulXX, nonvulnerable, tricksMade).calculate shouldBe c
-        Score(vul, vulnerable, tricksMade).calculate shouldBe d
-        Score(vulX, vulnerable, tricksMade).calculate shouldBe e
-        Score(vulXX, vulnerable, tricksMade).calculate shouldBe f
+        Score(nonVul, nonvulnerable, tricksMade).value shouldBe a
+        Score(nonVulX, nonvulnerable, tricksMade).value shouldBe b
+        Score(nonVulXX, nonvulnerable, tricksMade).value shouldBe c
+        Score(vul, vulnerable, tricksMade).value shouldBe d
+        Score(vulX, vulnerable, tricksMade).value shouldBe e
+        Score(vulXX, vulnerable, tricksMade).value shouldBe f
       )
     }
   }
