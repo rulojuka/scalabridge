@@ -1,7 +1,7 @@
-ThisBuild / scalaVersion := "3.8.4"
-ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "club.libridge"
-ThisBuild / organizationName := "libridge"
+scalaVersion := "3.8.4"
+version := "0.1.0-SNAPSHOT"
+organization := "club.libridge"
+organizationName := "libridge"
 
 lazy val root = (project in file("."))
   .settings(
