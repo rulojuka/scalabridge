@@ -3,7 +3,11 @@ package scalabridge
 /**
  * This is governed by LAW 77 - DUPLICATE BRIDGE SCORING TABLE
  */
-case class Score(contract: Contract, vulnerability: VulnerabilityStatus, tricksMade: TricksMade) {
+case class Score(
+    contract: Contract,
+    vulnerability: VulnerabilityStatus,
+    tricksMade: NumberOfTricks
+) {
   private val NO_TRUMP_FIRST_TRICK_BONUS = 10
 
   def calculate: Int = {
@@ -111,7 +115,7 @@ case class Score(contract: Contract, vulnerability: VulnerabilityStatus, tricksM
   ): Int = {
     if (undertricks < 0) return 0
     (vulnerability, contract.penaltyStatus) match
-      case (VulnerabilityStatus.NONVULNERABLE, PenaltyStatus.NONE) => undertricks * 50;
+      case (VulnerabilityStatus.NONVULNERABLE, PenaltyStatus.NONE)    => undertricks * 50;
       case (VulnerabilityStatus.NONVULNERABLE, PenaltyStatus.DOUBLED) =>
         undertricks match {
           case x if x < 4 => (undertricks * 200) - 100;

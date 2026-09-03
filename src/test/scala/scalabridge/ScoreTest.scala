@@ -1,14 +1,14 @@
 package scalabridge
 
 import org.junit.jupiter.api.Test
-import scalabridge.nonpure.ContractFromTextValidatedBuilder
+import _root_.scalabridge.nonpure.ContractFromTextValidatedBuilder
 
 @Test
 class ScoreTest extends UnitFunSpec {
   private def getScore(
       text: String,
       vulnerabilityStatus: VulnerabilityStatus,
-      tricksMade: TricksMade
+      tricksMade: NumberOfTricks
   ): Int = {
     val contract = ContractFromTextValidatedBuilder.build(text)
     val score = Score(contract, vulnerabilityStatus, tricksMade)
@@ -19,39 +19,39 @@ class ScoreTest extends UnitFunSpec {
   private val vul = VulnerabilityStatus.VULNERABLE
   describe("A ScoreCalculator") {
     it("should score 1N= correctly") {
-      getScore("1N", nonVul, TricksMade.SEVEN) shouldBe 90
-      getScore("1N", vul, TricksMade.SEVEN) shouldBe 90
+      getScore("1N", nonVul, NumberOfTricks.SEVEN) shouldBe 90
+      getScore("1N", vul, NumberOfTricks.SEVEN) shouldBe 90
     }
     it("should score 3N= correctly") {
-      getScore("3N", nonVul, TricksMade.NINE) shouldBe 400
-      getScore("3N", vul, TricksMade.NINE) shouldBe 600
+      getScore("3N", nonVul, NumberOfTricks.NINE) shouldBe 400
+      getScore("3N", vul, NumberOfTricks.NINE) shouldBe 600
     }
     it("should score 7NXX= correctly") {
-      getScore("7NXX", nonVul, TricksMade.THIRTEEN) shouldBe 2280
-      getScore("7NXX", vul, TricksMade.THIRTEEN) shouldBe 2980
+      getScore("7NXX", nonVul, NumberOfTricks.THIRTEEN) shouldBe 2280
+      getScore("7NXX", vul, NumberOfTricks.THIRTEEN) shouldBe 2980
     }
     it("should score some arbitrary contracts correctly") {
-      getScore("1C", vul, TricksMade.SEVEN) shouldBe 70;
-      getScore("1H", vul, TricksMade.SEVEN) shouldBe 80;
-      getScore("1C", vul, TricksMade.EIGHT) shouldBe 90;
-      getScore("1N", vul, TricksMade.SEVEN) shouldBe 90;
-      getScore("1H", vul, TricksMade.EIGHT) shouldBe 110;
-      getScore("1N", vul, TricksMade.EIGHT) shouldBe 120;
-      getScore("2DX", vul, TricksMade.EIGHT) shouldBe 180;
-      getScore("1NX", vul, TricksMade.SEVEN) shouldBe 180;
-      getScore("3S", nonVul, TricksMade.TWELVE) shouldBe 230;
-      getScore("2DX", vul, TricksMade.NINE) shouldBe 380;
-      getScore("5D", nonVul, TricksMade.TWELVE) shouldBe 420;
-      getScore("5D", vul, TricksMade.TWELVE) shouldBe 620;
-      getScore("3DX", vul, TricksMade.NINE) shouldBe 670;
-      getScore("3NX", nonVul, TricksMade.ELEVEN) shouldBe 750;
-      getScore("2DXX", vul, TricksMade.EIGHT) shouldBe 760;
-      getScore("3DX", vul, TricksMade.TEN) shouldBe 870;
-      getScore("6H", nonVul, TricksMade.TWELVE) shouldBe 980;
-      getScore("2DXX", vul, TricksMade.NINE) shouldBe 1160;
-      getScore("3HX", vul, TricksMade.TWELVE) shouldBe 1330;
-      getScore("6C", vul, TricksMade.TWELVE) shouldBe 1370;
-      getScore("6H", vul, TricksMade.TWELVE) shouldBe 1430;
+      getScore("1C", vul, NumberOfTricks.SEVEN) shouldBe 70;
+      getScore("1H", vul, NumberOfTricks.SEVEN) shouldBe 80;
+      getScore("1C", vul, NumberOfTricks.EIGHT) shouldBe 90;
+      getScore("1N", vul, NumberOfTricks.SEVEN) shouldBe 90;
+      getScore("1H", vul, NumberOfTricks.EIGHT) shouldBe 110;
+      getScore("1N", vul, NumberOfTricks.EIGHT) shouldBe 120;
+      getScore("2DX", vul, NumberOfTricks.EIGHT) shouldBe 180;
+      getScore("1NX", vul, NumberOfTricks.SEVEN) shouldBe 180;
+      getScore("3S", nonVul, NumberOfTricks.TWELVE) shouldBe 230;
+      getScore("2DX", vul, NumberOfTricks.NINE) shouldBe 380;
+      getScore("5D", nonVul, NumberOfTricks.TWELVE) shouldBe 420;
+      getScore("5D", vul, NumberOfTricks.TWELVE) shouldBe 620;
+      getScore("3DX", vul, NumberOfTricks.NINE) shouldBe 670;
+      getScore("3NX", nonVul, NumberOfTricks.ELEVEN) shouldBe 750;
+      getScore("2DXX", vul, NumberOfTricks.EIGHT) shouldBe 760;
+      getScore("3DX", vul, NumberOfTricks.TEN) shouldBe 870;
+      getScore("6H", nonVul, NumberOfTricks.TWELVE) shouldBe 980;
+      getScore("2DXX", vul, NumberOfTricks.NINE) shouldBe 1160;
+      getScore("3HX", vul, NumberOfTricks.TWELVE) shouldBe 1330;
+      getScore("6C", vul, NumberOfTricks.TWELVE) shouldBe 1370;
+      getScore("6H", vul, NumberOfTricks.TWELVE) shouldBe 1430;
     }
     it("should score all failed contracts correctly") {
       // Trusting completely in http://rpbridge.net/cgi-bin/xsc2.pl
@@ -86,7 +86,7 @@ class ScoreTest extends UnitFunSpec {
       val vulXX = Contract(sevenOddTricks, anyStrain, redoubled)
       values.foreach(downSome =>
         val (i, a, b, c, d, e, f) = downSome
-        val tricksMade = TricksMade.fromInt(13 - i + 1)
+        val tricksMade = NumberOfTricks.fromInt(13 - i).get
         Score(nonVul, nonvulnerable, tricksMade).calculate shouldBe a
         Score(nonVulX, nonvulnerable, tricksMade).calculate shouldBe b
         Score(nonVulXX, nonvulnerable, tricksMade).calculate shouldBe c
